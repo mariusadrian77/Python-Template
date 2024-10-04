@@ -1,44 +1,21 @@
-FROM mcr.microsoft.com/devcontainers/base:jammy
-# FROM mcr.microsoft.com/devcontainers/base:jammy 
+FROM python:3.11.3-slim-bullseye
 
-ARG DEBIAN_FRONTEND=noninteractive
-ARG USER=vscode
+RUN pip install poetry==1.8.3
 
-RUN DEBIAN_FRONTEND=noninteractive \
-    && apt-get update \ 
-    && apt-get install -y build-essential --no-install-recommends make \
-        ca-certificates \
-        git \
-        libssl-dev \
-        zlib1g-dev \
-        libbz2-dev \
-        libreadline-dev \
-        libsqlite3-dev \
-        wget \
-        curl \
-        llvm \
-        libncurses5-dev \
-        xz-utils \
-        tk-dev \
-        libxml2-dev \
-        libxmlsec1-dev \
-        libffi-dev \
-        liblzma-dev
+ENV POETRY_NO_INTERACTION=1 \
+    POETRY_VIRTUALENVS_CREATE=false \
+    POETRY_HOME=/usr/local \
+    POETRY_CACHE_DIR=/tmp/poetry_cache \
+    WORKING_DIR=/code/
 
-# Python and poetry installation
-USER $USER
-ARG HOME="/home/$USER"
-ARG PYTHON_VERSION=3.11
+RUN apt-get update \
+    && apt-get install -y git curl vim \
+    && apt-get clean
 
-ENV PYENV_ROOT="${HOME}/.pyenv"
-ENV PATH="${PYENV_ROOT}/shims:${PYENV_ROOT}/bin:${HOME}/.local/bin:$PATH"
+RUN curl -sSL https://install.python-poetry.org | python -
 
-RUN echo "done 0" \
-    && curl https://pyenv.run | bash \
-    && echo "done 1" \
-    && pyenv install ${PYTHON_VERSION} \
-    && echo "done 2" \
-    && pyenv global ${PYTHON_VERSION} \
-    && echo "done 3" \
-    && curl -sSL https://install.python-poetry.org | python3 - \
-    && poetry config virtualenvs.in-project true
+WORKDIR $WORKING_DIR
+
+COPY ["poetry.lock", "pyproject.toml", "$WORKING_DIR"]
+
+COPY [".", "$WORKING_DIR"]

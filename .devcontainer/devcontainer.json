@@ -1,33 +1,50 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.231.6/containers/python-3
 {
-	"name": "poetry3-poetry-pyenv",
+	"name": "Python 3",
 	"build": {
-		"dockerfile": "Dockerfile"
+		"dockerfile": "Dockerfile",
+		"context": ".."
 	},
-
-	// 👇 Features to add to the Dev Container. More info: https://containers.dev/implementors/features.
-	// "features": {},
-
-	// 👇 Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-
-	// 👇 Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "",
-
-	// 👇 Configure tool-specific properties.
+	// Set *default* container specific settings.json values on container create.
 	"customizations": {
-        "vscode": {
-            "extensions":[
-				"ms-python.python", 
-				"njpwerner.autodocstring", 
+		"vscode": {
+			"settings": {
+				"python.defaultInterpreterPath": "/usr/local/bin/python",
+				"python.pythonPath": "/usr/local/bin/python",
+				"python.linting.enabled": true,
+				"python.linting.pylintEnabled": true,
+				"python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
+				"python.formatting.blackPath": "/usr/local/py-utils/bin/black",
+				"python.formatting.yapfPath": "/usr/local/py-utils/bin/yapf",
+				"python.linting.banditPath": "/usr/local/py-utils/bin/bandit",
+				"python.linting.flake8Path": "/usr/local/py-utils/bin/flake8",
+				"python.linting.mypyPath": "/usr/local/py-utils/bin/mypy",
+				"python.linting.pycodestylePath": "/usr/local/py-utils/bin/pycodestyle",
+				"python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
+				"python.linting.pylintPath": "/usr/local/py-utils/bin/pylint",
+				"files.insertFinalNewline": true,
+				"files.trimFinalNewlines": true,
+				"files.trimTrailingWhitespace": true,
+				"editor.quickSuggestions": {
+					"strings": true
+				},
+				"editor.formatOnSave": true
+			},
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"ms-python.python",
+				"ms-vscode-remote.vscode-remote-extensionpack",
+				"njpwerner.autodocstring",
 				"mechatroner.rainbow-csv",
 				"GrapeCity.gc-excelviewer",
-				"ms-python.vscode-pylance", 
-				"GitHub.vscode-pull-request-github", 
-				"ms-python.black-formatter", 
-				"ms-toolsai.datawrangler"]
-            }
-        }
-
-	// 👇 Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+				"ms-python.vscode-pylance",
+				"GitHub.vscode-pull-request-github",
+				"ms-python.black-formatter",
+				"ms-toolsai.datawrangler",
+				"ms-azuretools.vscode-docker",
+				"zeshuaro.vscode-python-poetry"
+			]
+		}
+	}
 }
