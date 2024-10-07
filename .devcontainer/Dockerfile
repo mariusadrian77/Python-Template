@@ -1,5 +1,7 @@
 FROM python:3.11.3-slim-bullseye
 
+RUN pip install --upgrade pip
+
 RUN pip install poetry==1.8.3
 
 ENV POETRY_NO_INTERACTION=1 \
