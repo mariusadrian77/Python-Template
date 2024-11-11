@@ -16,14 +16,17 @@ seaborn = "^0.12.2"
 plotly = "^5.14.0"
 sqlalchemy = "^2.0.0"
 pyspark = "^3.4.0"
-psycopg2 = "^2.9.6"
+psycopg2-binary = "^2.9.6"  # Changed from psycopg2 to psycopg2-binary
 requests = "^2.31.0"
 beautifulsoup4 = "^4.12.0"
 dask = "^2023.5.0"
-os = "*"
 urllib3 = "^2.0.0"
-
+# Removed 'os' as it's a built-in module
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+pylint = "^2.17.0"
