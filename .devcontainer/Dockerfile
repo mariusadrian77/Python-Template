@@ -1,34 +1,33 @@
-FROM python:3.11.3-slim-bullseye
+FROM python:3.11-slim
 
-ENV POETRY_NO_INTERACTION=1 \
+# Combine all ENV variables in one layer
+ENV POETRY_VERSION=1.8.2 \
+    POETRY_HOME=/opt/poetry \
+    POETRY_NO_INTERACTION=1 \
     POETRY_VIRTUALENVS_CREATE=false \
-    POETRY_HOME=/usr/local \
     POETRY_CACHE_DIR=/tmp/poetry_cache \
-    WORKING_DIR=/code/
+    PATH="/opt/poetry/bin:$PATH" \
+    WORKING_DIR=/code
 
-# Install system dependencies
+# Install system dependencies including build tools
 RUN apt-get update && \
-    apt-get install -y \
-    git \
+    apt-get install -y --no-install-recommends \
     curl \
+    git \
     build-essential \
-    libpq-dev && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# Install Poetry
-RUN curl -sSL https://install.python-poetry.org | python -
-
-# Install pip and upgrade it
-RUN pip install --no-cache-dir --upgrade pip
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/* && \
+    curl -sSL https://install.python-poetry.org | python3 - && \
+    poetry --version
 
 WORKDIR $WORKING_DIR
 
-# Copy only pyproject.toml first
-COPY pyproject.toml ./
+# Copy only what's needed for dependency installation
+COPY pyproject.toml poetry.lock ./
 
-# First install main dependencies
-RUN poetry install --no-root --only main
+# Install dependencies
+RUN poetry install --no-root --only main && \
+    rm -rf $POETRY_CACHE_DIR
 
-# Copy the rest of the application
+# Copy application code last
 COPY . .
