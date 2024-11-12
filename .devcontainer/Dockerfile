@@ -11,7 +11,6 @@ RUN apt-get update && \
     apt-get install -y \
     git \
     curl \
-    vim \
     build-essential \
     libpq-dev && \
     apt-get clean && \
@@ -25,15 +24,11 @@ RUN pip install --no-cache-dir --upgrade pip
 
 WORKDIR $WORKING_DIR
 
-# Copy only pyproject.toml first (no lock file needed)
+# Copy only pyproject.toml first
 COPY pyproject.toml ./
 
-# Generate lock file and install dependencies
-RUN poetry lock && \
-    poetry install --no-root --no-dev
+# First install main dependencies
+RUN poetry install --no-root --only main
 
 # Copy the rest of the application
 COPY . .
-
-# Install the project in editable mode
-RUN poetry install --no-dev

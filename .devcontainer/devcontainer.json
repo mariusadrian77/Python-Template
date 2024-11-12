@@ -52,7 +52,6 @@
                     "source.organizeImports": true,
                     "source.fixAll": true
                 },
-                "editor.inlineSuggest.enabled": true,
                 // File settings
                 "files.insertFinalNewline": true,
                 "files.trimFinalNewlines": true,
@@ -95,37 +94,25 @@
                 "ms-toolsai.vscode-jupyter-slideshow",
                 "ms-toolsai.datawrangler",
                 "zeshuaro.vscode-python-poetry",
-                // AI & ML
-                "ms-toolsai.vscode-ai", // Azure ML integration
-                "ms-pytorch.vscode-pytorch-snippets",
                 // Database & Big Data
                 "mtxr.sqltools", // SQL client
                 "mtxr.sqltools-driver-pg", // PostgreSQL driver
-                "mongodb.mongodb-vscode", // MongoDB integration
-                "redhat.vscode-xml", // XML tools
-                "redhat.vscode-yaml", // YAML tools
                 // Data Visualization
                 "mechatroner.rainbow-csv", // CSV/TSV file viewer
                 "GrapeCity.gc-excelviewer", // Excel viewer
                 "RandomFractalsInc.vscode-data-preview", // Data preview
-                "msrvida.vscode-sanddance", // Data visualization
                 // Development Tools
                 "ms-vscode-remote.vscode-remote-extensionpack",
                 "ms-azuretools.vscode-docker",
-                "ms-vscode.makefile-tools",
                 "streetsidesoftware.code-spell-checker",
                 "yzhang.markdown-all-in-one",
                 "davidanson.vscode-markdownlint",
                 "bierner.markdown-preview-github-styles",
                 // Git & Collaboration
                 "GitHub.vscode-pull-request-github",
-                "eamodio.gitlens",
-                "mhutchie.git-graph",
                 // Code Quality & Documentation
                 "njpwerner.autodocstring", // Python docstring generator
-                "sourcery.sourcery", // Python code quality suggestions
                 "KevinRose.vsc-python-indent", // Smart Python indentation
-                "usernamehw.errorlens", // Inline error display
                 // Testing
                 "littlefoxteam.vscode-python-test-adapter",
                 "ryanluker.vscode-coverage-gutters",
@@ -138,20 +125,12 @@
                 "gruntfuggly.todo-tree",
                 // Theme & UI
                 "vscode-icons-team.vscode-icons",
-                "pkief.material-icon-theme",
-                // API Development
-                "42crunch.vscode-openapi", // OpenAPI (Swagger) tools
-                "rangav.vscode-thunder-client" // API client
+                "pkief.material-icon-theme"
             ]
         }
     },
     "features": {
         "ghcr.io/devcontainers/features/git:1": {},
         "ghcr.io/devcontainers/features/github-cli:1": {}
-    },
-    // Use 'postCreateCommand' to run commands after the container is created.
-    "postCreateCommand": "poetry install && pre-commit install",
-    // Configure tool-specific properties.
-    "remoteUser": "root"
-    // Set container specific settings
+    }
 }
